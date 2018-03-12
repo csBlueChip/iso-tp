@@ -6,12 +6,12 @@
 #define  DBG_ON (0)  // debug control 0=off, 1=on
 #if (DGB_ON == 1) 
 #	define DBG(...)     Serial.print(__VA_ARGS__)
-#	define DGBLN(...)   Serial.println(__VA_ARGS__)
-#	define DGBBUF(...)  print_buffer(__VA_ARGS__)
+#	define DBGLN(...)   Serial.println(__VA_ARGS__)
+#	define DBGBUF(...)  print_buffer(__VA_ARGS__)
 #else
 #	define DBG(...)
-#	define DGBLN(...)
-#	define DGBBUF(...)  print_buffer(__VA_ARGS__)
+#	define DBGLN(...)
+#	define DBGBUF(...)  print_buffer(__VA_ARGS__)
 #endif	
 
 //+=====================================================================================================================
@@ -23,17 +23,13 @@ IsoTp::IsoTp(CAN_COMMON* bus)
 //+=====================================================================================================================
 void IsoTp::print_buffer(uint32_t id, uint8_t *buffer, uint16_t len)
 {
-    uint16_t i=0;
-
     Serial.print(F("Buffer: "));
-    Serial.print(id,HEX);
+    Serial.print(id, HEX);
     Serial.print(F(" ["));
     Serial.print(len);
     Serial.print(F("] "));
-    for (i=0; i<len; i++) {
-        if (buffer[i] < 0x10) {
-            Serial.print(F("0"));
-        }
+    for (int  i = 0;  i < len;  i++) {
+        if (buffer[i] < 0x10)  Serial.print(F("0")) ;
         Serial.print(buffer[i],HEX);
         Serial.print(F(" "));
     }
