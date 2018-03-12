@@ -239,7 +239,7 @@ uint8_t IsoTp::can_receive(void)
 //+=====================================================================================================================
 uint8_t IsoTp::send_fc(struct Message_t *msg)
 {
-    uint8_t TxBuf[8]= {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+    uint8_t  TxBuf[8] = {FILL_CHAR, FILL_CHAR, FILL_CHAR, FILL_CHAR, FILL_CHAR, FILL_CHAR, FILL_CHAR, FILL_CHAR};
     // FC message high nibble = 0x3 , low nibble = FC Status
     TxBuf[0]=(N_PCI_FC | msg->fc_status);
     TxBuf[1]=msg->blocksize;
@@ -256,7 +256,7 @@ uint8_t IsoTp::send_fc(struct Message_t *msg)
 //+=====================================================================================================================
 uint8_t IsoTp::send_sf(struct Message_t *msg) //Send SF Message
 {
-    uint8_t TxBuf[8]= {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+    uint8_t TxBuf[8]= {FILL_CHAR, FILL_CHAR, FILL_CHAR, FILL_CHAR, FILL_CHAR, FILL_CHAR, FILL_CHAR, FILL_CHAR};
     // SF message high nibble = 0x0 , low nibble = Length
     TxBuf[0]=(N_PCI_SF | msg->len);
     memcpy(TxBuf+1,msg->Buffer,msg->len);
@@ -267,7 +267,7 @@ uint8_t IsoTp::send_sf(struct Message_t *msg) //Send SF Message
 //+=====================================================================================================================
 uint8_t IsoTp::send_ff(struct Message_t *msg) // Send FF
 {
-    uint8_t TxBuf[8]= {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+    uint8_t TxBuf[8]= {FILL_CHAR, FILL_CHAR, FILL_CHAR, FILL_CHAR, FILL_CHAR, FILL_CHAR, FILL_CHAR, FILL_CHAR};
     msg->seq_id=1;
 
     TxBuf[0]=(N_PCI_FF | ((msg->len&0x0F00) >> 8));
@@ -279,7 +279,7 @@ uint8_t IsoTp::send_ff(struct Message_t *msg) // Send FF
 //+=====================================================================================================================
 uint8_t IsoTp::send_cf(struct Message_t *msg) // Send CF Message
 {
-    uint8_t TxBuf[8]= {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+    uint8_t TxBuf[8]= {FILL_CHAR, FILL_CHAR, FILL_CHAR, FILL_CHAR, FILL_CHAR, FILL_CHAR, FILL_CHAR, FILL_CHAR};
     uint16_t len=7;
 
     TxBuf[0]=(N_PCI_CF | (msg->seq_id & 0x0F));
